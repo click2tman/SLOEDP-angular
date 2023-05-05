@@ -1,0 +1,7 @@
+{
+  "name": "soledp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
