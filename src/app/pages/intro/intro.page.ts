@@ -49,7 +49,7 @@ export class IntroPage implements OnInit {
         break;
       case 2:
         this.back = "Back"
-        this.next = "Start using App"
+        this.next = "Start App"
         // code...
         break;
     }
