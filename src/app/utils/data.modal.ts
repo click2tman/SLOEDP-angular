@@ -1,4 +1,4 @@
-export interface NationGeoJSON {
+export interface NationGeo {
     type: string,
     crs: {
         type: string,
@@ -15,13 +15,17 @@ export interface NationGeoJSON {
                 timestamp: any
                 begin: string
                 end: any,
-                altitudeMode
-                tessellate
-                extrude
-                visibility
-                drawOrder
-                icon
+                altitudeMode: any,
+                tessellate: number,
+                extrude: number,
+                visibility: number,
+                drawOrder: any
+                icon: string
+            },
+            geometry: {
+                type: string,
+                coordinates: []
             }
         }
-    ]
+    ],
 }

@@ -16,6 +16,14 @@ const routes: Routes = [
     path: 'president',
     loadChildren: () => import('./pages/president/president.module').then( m => m.PresidentPageModule)
   },
+  {
+    path: 'candidate/:id',
+    loadChildren: () => import('./pages/candidate/candidate.module').then( m => m.CandidatePageModule)
+  },
+  {
+    path: 'party/:id',
+    loadChildren: () => import('./pages/party-profile/party-profile.module').then( m => m.PartyProfilePageModule)
+  },
 ];
 
 @NgModule({

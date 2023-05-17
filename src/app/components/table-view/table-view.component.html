@@ -1,0 +1,61 @@
+<!-- Generated template for the TableViewComponent component -->
+<div>
+	<ion-grid *ngIf="!isNation">
+		<ion-row>
+			<ion-col col-3 text-right>Filter: </ion-col>
+			<ion-col col-9><select2 [value]="Boundary" [data]="Boundaries" (valueChanged)="onSelectChange($event)"></select2></ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="round-box" *ngIf="isRoundAvailable">
+		<label>Round: First&nbsp;</label>
+		<ion-toggle [(ngModel)]="round" (ionChange)="changeRound(round)"></ion-toggle>
+		<label>&nbsp;Second</label>
+	</div>
+
+	<table margin-top>
+		<thead>
+			<tr>
+				<th>Candidate</th>
+				<th>Party</th>
+				<th>Votes</th>
+				<th>Percentage</th>
+			</tr>
+		</thead>
+		<tbody *ngIf="candidatesEnable()">
+			<tr *ngFor="let result of Results; let i = index">
+				<td><a (click)="gotoCandidateDetail(result['Candidate_SLEOP_ID'])" [innerHtml]="result['CandidateFullName']"></a> &nbsp;<i class="fa fa-check-circle" *ngIf="i == 0 && !noWinner"></i></td>
+				<td><a (click)="gotoPartyDetail(result['CandidatePoliticalParty'])">{{ result['CandidatePoliticalParty'] }}</a></td>
+				<td>{{ result['ValidVotes'] | number }}</td>
+				<td>{{ result['ValidVotesPercentage'] }}</td>
+			</tr>
+		</tbody>
+		<tbody *ngIf="!candidatesEnable()">
+			<tr>
+				<td colspan="4">There are no election datas</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>Total</td>
+				<td></td>
+				<td>{{ result.ValidVotes | number }}</td>
+				<td>100%</td>
+			</tr>
+		</tfoot>
+	</table>
+	<div class="election-info" padding-top *ngIf="candidatesEnable()">
+		<ion-grid no-padding>
+			<ion-row>
+				<ion-col text-left class="small">
+					Total Registered Voters = {{ result.TotalVotes | number }}<br>
+					Percentage of votes counted: {{ result.VotesPecentage }}<br>
+					Result Status: {{ result.ResultStatus }}
+				</ion-col>
+				<ion-col text-right class="small">
+					Total Valid Votes: {{ result.ValidVotes | number }}<br>
+					Total Invalid Votes: {{ result.InvalidVotes | number }}
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+</div>

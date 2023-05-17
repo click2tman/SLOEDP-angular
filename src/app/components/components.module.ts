@@ -3,18 +3,31 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ContentViewComponent } from './content-view/content-view.component';
 import { MapViewComponent } from './map-view/map-view.component';
-
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { PipesModule } from '../pipes/pipes.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableViewComponent } from './table-view/table-view.component';
+import { RangeViewComponent } from './range-view/range-view.component';
 @NgModule({
 	declarations: [
         ContentViewComponent,
-        MapViewComponent
+        MapViewComponent,
+        TableViewComponent,
+        RangeViewComponent
     ],
 	imports: [
-        CommonModule, IonicModule
+        CommonModule, 
+        IonicModule,
+        LeafletModule,
+        PipesModule,
+        ReactiveFormsModule,
+        FormsModule,
     ],
 	exports: [
         ContentViewComponent,
-        MapViewComponent
+        MapViewComponent,
+        TableViewComponent,
+        RangeViewComponent
     ],
     entryComponents: [],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

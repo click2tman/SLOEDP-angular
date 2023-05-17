@@ -1,3 +1,96 @@
-<p>
-  map-view works!
-</p>
+
+<!-- Generated template for the MapViewComponent component -->
+<div class="view-container">
+	<div class="map"
+		leaflet
+		[leafletLayers]="layers"
+		[leafletOptions]="mapOptions">
+		<div class="round-box" *ngIf="isRoundAvailable">
+			<label>Round: First&nbsp;</label>
+			<ion-toggle [(ngModel)]="round" (ionChange)="changeRound(round)"></ion-toggle>
+			<label>&nbsp;Second</label>
+		</div>
+	</div>
+	<div *ngIf="!candidatesEnable()" class="no-data">
+		There are no results to display
+	</div>
+	<div *ngIf="candidatesEnable()">
+		<div class="election-details">
+			<div class="election-info">
+				<ion-grid no-padding>
+					<ion-row>
+						<ion-col text-left class="small">
+							Total Registered Voters = {{ result.TotalVotes | number }}<br>
+							Percentage of votes counted: {{ result.VotesPecentage }}<br>
+							Result Status: {{ result.ResultStatus }}
+						</ion-col>
+						<ion-col text-right class="small">
+							Total Valid Votes: {{ result.ValidVotes | number }}<br>
+							Total Invalid Votes: {{ result.InvalidVotes | number }}
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</div>
+			<div class="election-parties">
+				<ion-grid no-padding>
+					<ion-row>
+						<ion-col *ngFor="let acronym of result.Parties | party" (click)="gotoPage('party',acronym.value)">
+							<div class="small">{{ acronym.key }}</div>
+							<div class="party-card" [style.background-color]="colorFilter(acronym.value.Color)"></div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</div>
+			<div class="election-competitors">
+				<ion-grid class="show-mobile" no-padding>
+					<ion-row *ngFor="let row of transform2d(result.ElectionResults, 2, result.ElectionResults.length); let i = index">
+						<ion-col *ngFor="let candidate of row; let j = index">
+							<div class="img-wrapper" (tap)="gotoPage('candidate',candidate.Candidate_SLEOP_ID)">
+								<a>
+									<img src="/assets/imgs/avatar.png" padding-left *ngIf="!candidate.CandidatePhoto">
+									<img src="{{ setPhotoUrl(candidate.CandidatePhoto) }}" *ngIf="candidate.CandidatePhoto">
+									<span [innerHtml]="candidate.CandidateFullName"></span>
+								</a>
+								<span class="votes">{{ candidate.ValidVotes | number }} <br> {{ candidate.ValidVotesPercentage }}% <i class="fa fa-check-circle" *ngIf="i == 0 && j == 0 && !noWinner"></i></span>
+							</div>
+							<div class="card" [style.background-color]="colorFilter(candidate.CandidatePoliticalPartyColor)">
+							</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				<ion-grid class="show-tablet">
+					<ion-row *ngFor="let row of transform2d(result.ElectionResults, 3, 6); let i = index">
+						<ion-col *ngFor="let candidate of row; let j = index">
+							<div class="img-wrapper" (tap)="gotoPage('candidate',candidate.Candidate_SLEOP_ID)">
+								<a>
+									<img src="/assets/imgs/avatar.png" padding-left *ngIf="!candidate.CandidatePhoto">
+									<img src="{{ setPhotoUrl(candidate.CandidatePhoto) }}" *ngIf="candidate.CandidatePhoto">
+									<span [innerHtml]="candidate.CandidateFullName"></span>
+								</a>
+								<span class="votes">{{ candidate.ValidVotes | number }} <br> {{ candidate.ValidVotesPercentage }}% <i class="fa fa-check-circle" *ngIf="i == 0 && j == 0 && !noWinner"></i></span>
+							</div>
+							<div class="card" [style.background-color]="colorFilter(candidate.CandidatePoliticalPartyColor)">
+							</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				<ion-grid class="show-core">
+					<ion-row *ngFor="let row of transform2d(result.ElectionResults, 4, 12); let i = index">
+						<ion-col *ngFor="let candidate of row; let j = index">
+							<div class="img-wrapper" (tap)="gotoPage('candidate',candidate.Candidate_SLEOP_ID)">
+								<a>
+									<img src="/assets/imgs/avatar.png" padding-left *ngIf="!candidate.CandidatePhoto">
+									<img src="{{ setPhotoUrl(candidate.CandidatePhoto) }}" *ngIf="candidate.CandidatePhoto">
+									<span [innerHtml]="candidate.CandidateFullName"></span>
+								</a>
+								<span class="votes">{{ candidate.ValidVotes | number }} <br> {{ candidate.ValidVotesPercentage }}% <i class="fa fa-check-circle" *ngIf="i == 0 && j == 0 && !noWinner"></i></span>
+							</div>
+							<div class="card" [style.background-color]="colorFilter(candidate.CandidatePoliticalPartyColor)">
+							</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</div>
+		</div>
+	</div>
+</div>
