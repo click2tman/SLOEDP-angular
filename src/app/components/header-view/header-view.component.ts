@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit,Input } from '@angular/core';
+import { PopoverController }from '@ionic/angular';
+import { RangeViewComponent } from '../range-view/range-view.component';
 @Component({
   selector: 'app-header-view',
   templateUrl: './header-view.component.html',
@@ -7,8 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderViewComponent  implements OnInit {
   
-  constructor() { }
+  isGranularityEnabled!: boolean;
+
+  @Input('type') type!: string;
+
+  constructor(public popoverCtrl: PopoverController) { }
 
   ngOnInit() {}
 
+  async selectRange(event: any) {
+  	let popover = await this.popoverCtrl.create({component: RangeViewComponent, componentProps: {type: this.type}});
+    popover.present();
+  }
 }

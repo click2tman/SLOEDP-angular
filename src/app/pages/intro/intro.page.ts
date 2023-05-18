@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-intro',
@@ -14,23 +15,21 @@ export class IntroPage implements OnInit {
     initialSlide: 0,
     speed: 400,
   };
-  constructor() {}
+  constructor(
+    private commonService: CommonService
+  ) {}
 
   ngOnInit() {}
 
   async onSkip() {
     var current_index = await this.slides.getActiveIndex();
-    if (current_index == 0)
-      console.log(current_index);
-      // this.navCtrl.setRoot(PresidentPage);
-    else
-      this.slides.slideTo(current_index - 1, 500)
+    if (current_index == 0) this.commonService.root('president');
+    else this.slides.slideTo(current_index - 1, 500)
   }
   async onStart() {
     var current_index = await this.slides.getActiveIndex()
     if (current_index == 2)
-      console.log(current_index);
-      // this.navCtrl.setRoot(PresidentPage);
+      this.commonService.root('president');
     else
       this.slides.slideTo(current_index + 1, 500)
   }
