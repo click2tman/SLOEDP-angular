@@ -2,11 +2,11 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@ang
 
 import { icon, latLng, Layer, marker, geoJSON, tileLayer } from "leaflet";
 
-import * as nationGeoJSON from "../../../assets/maps/nation.json";
-import * as regionGeoJSON from "../../../assets/maps/region.json";
-import * as region2018GeoJSON from "../../../assets/maps/region-2018.json";
-import * as districtGeoJSON from "../../../assets/maps/district.json";
-import * as district2018GeoJSON from "../../../assets/maps/district-2018.json";
+let nationGeoJSON: any;
+let regionGeoJSON: any;
+let region2018GeoJSON: any;
+let districtGeoJSON: any;
+let district2018GeoJSON: any;
 
 
 
@@ -44,6 +44,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     private commonService: CommonService,
     private ref: ChangeDetectorRef
   ) { 
+    this.fetchData();
     this.result = {
       ResultStatus: "",
       TotalVotes: "",
@@ -57,6 +58,14 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     };
     this.noWinner = true;
     this.applyMap([]);
+  }
+  fetchData(){
+    nationGeoJSON = this.commonService.nationGeoJSON;
+    console.log(nationGeoJSON);
+    regionGeoJSON = this.commonService.regionGeoJSON;
+    region2018GeoJSON = this.commonService.region2018GeoJSON;
+    districtGeoJSON = this.commonService.districtGeoJSON;
+    district2018GeoJSON = this.commonService.district2018GeoJSON;
   }
 
   ngOnInit() {}

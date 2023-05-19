@@ -75,6 +75,16 @@ export class ContentViewComponent  implements OnInit, AfterViewInit, OnDestroy {
       }, 10);
     }
   }
+  seletGranularity(granularity: any) {
+    this.commonService.setGranularity(granularity);
+  }
+  setContentView() {
+    setTimeout((...args: any[]) => {
+      this.setGranularityList();
+      this.setMapMode(this.mapMode);
+      this.setResultRegion(this.region);
+    }, 10)
+  }
   setMapInit() {
     if (this.mapView)
       this.mapView.drawMap();

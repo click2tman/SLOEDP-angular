@@ -9,12 +9,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableViewComponent } from './table-view/table-view.component';
 import { RangeViewComponent } from './range-view/range-view.component';
 import { Select2Module } from 'ng-select2-component';
+import { HeaderViewComponent } from './header-view/header-view.component';
 @NgModule({
 	declarations: [
         ContentViewComponent,
         MapViewComponent,
         TableViewComponent,
-        RangeViewComponent
+        RangeViewComponent,
+        HeaderViewComponent,
     ],
 	imports: [
         CommonModule, 
@@ -29,7 +31,8 @@ import { Select2Module } from 'ng-select2-component';
         ContentViewComponent,
         MapViewComponent,
         TableViewComponent,
-        RangeViewComponent
+        RangeViewComponent,
+        HeaderViewComponent
     ],
     entryComponents: [],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonService } from './services/common.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,5 +15,12 @@ export class AppComponent {
     { title: 'Councilor',name: "councilor", url: '' },
     { title: 'About this app',name: "about", url: '' },
   ];
-  constructor() {}
+  constructor(
+    private commonService: CommonService
+  ) {
+    this.fatchJSON();
+  }
+  fatchJSON(){
+    this.commonService.fathAllJSON();
+  }
 }

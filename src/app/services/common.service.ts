@@ -5,7 +5,7 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
 import * as parties from "../../assets/resources/all-political-parties.json";
 import * as candidates from "../../assets/resources/all-candidates.json";
 import { waterfall } from 'async';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,11 @@ export class CommonService {
   results: any = {};
   whole_results: any = {};
   year: any;
+  nationGeoJSON: any;
+  regionGeoJSON: any;
+  region2018GeoJSON: any;
+  districtGeoJSON: any;
+  district2018GeoJSON: any;
   private granularitySubject = new Subject<any>();
   private $event = new Subject<EventCustom>()
   constructor(
@@ -77,7 +82,9 @@ export class CommonService {
   getCandidate(candidate_id: any) {
     return this.candidates_json[candidate_id];
   }
-
+  getJsonHTTP(path: string){
+    return this.http.get(path).pipe();
+  }
   loadWholeResults() {
     if (Object.keys(this.whole_results).length > 0) {
       return Promise.resolve(this.whole_results);
@@ -559,6 +566,13 @@ export class CommonService {
   }
   getGranularity(): Observable<any> {
     return this.granularitySubject.asObservable();
+  }
+  fathAllJSON(){
+    this.getJsonHTTP('../../../assets/maps/nation.json').pipe(take(1),tap((response) => this.nationGeoJSON = response)).subscribe();
+    this.getJsonHTTP('../../../assets/maps/region.json').pipe(take(1),tap((response) => this.regionGeoJSON = response)).subscribe();
+    this.getJsonHTTP('../../../assets/maps/region-2018.json').pipe(take(1),tap((response) => this.region2018GeoJSON = response)).subscribe();
+    this.getJsonHTTP('../../../assets/maps/district.json').pipe(take(1),tap((response) => this.districtGeoJSON = response)).subscribe()
+    this.getJsonHTTP('../../../assets/maps/district-2018.json').pipe(take(1),tap((response) => this.district2018GeoJSON = response)).subscribe();
   }
 }
 interface EventCustom {

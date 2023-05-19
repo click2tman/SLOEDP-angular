@@ -12,7 +12,7 @@ export class PartyPipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-  transform(value: any, ...args) {
+  transform(value: any, ...args: any) {
     // return value.toLowerCase();
     let keys = [];
 	for (let key in value) {

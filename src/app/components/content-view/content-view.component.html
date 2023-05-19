@@ -67,18 +67,18 @@
 			</ion-col>
 			<ion-col class="content" col-8 [ngClass]="{'fullWidth': sidebarDisabled}">
 				<ion-toolbar class="viewModeToolbar">
-					<button ion-button (click)="setMapMode(true)" [ngClass]="{'active': mapMode}" class="modeButton" float-left>
+					<ion-button (click)="setMapMode(true)" [ngClass]="{'active': mapMode}" class="modeButton" float-left>
 						Map&nbsp;<i class="fa fa-globe"></i>
-					</button>
+					</ion-button>
 					<ion-title text-center>{{ resultRegion }}</ion-title>
 					<ion-buttons end>
-						<button ion-button (click)="setMapMode(false)" [ngClass]="{'active': !mapMode}" class="modeButton">
+						<ion-button (click)="setMapMode(false)" [ngClass]="{'active': !mapMode}" class="modeButton">
 							<i class="fa fa-table"></i>&nbsp;Table
-						</button>
+						</ion-button>
 					</ion-buttons>
 				</ion-toolbar>
-				<map-view *ngIf="mapMode" [year]="year" [region]="region" [type]="type" (boundarySelect)="boundarySelect($event)" #mapview>
-				</map-view>
+				<app-map-view *ngIf="mapMode" [year]="year" [region]="region" [type]="type" #mapview>
+				</app-map-view>
 				<table-view *ngIf="!mapMode" [year]="year" [region]="region" [type]="type" #tableview>
 				</table-view>
 			</ion-col>
