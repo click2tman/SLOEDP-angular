@@ -17,7 +17,7 @@
   <ion-slides (ionSlideDidChange)="slideChanged()">
 
     <ion-slide *ngFor="let p of subpages; let i = index">
-      <div>
+      <div class="ion-text-center">
         <app-content-view type="president" [year]="p.year" [region]="region" #president_{{i}}></app-content-view>
       </div>
     </ion-slide>

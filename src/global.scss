@@ -42,3 +42,9 @@
 .fwb{
     font-weight: bold;
 }
+ion-slides{
+    height: 100%;
+    .swiper-wrapper{
+        height: auto;
+    }
+}

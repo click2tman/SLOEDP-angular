@@ -17,14 +17,14 @@
 	<div *ngIf="candidatesEnable()">
 		<div class="election-details">
 			<div class="election-info">
-				<ion-grid no-padding>
+				<ion-grid class="ion-no-padding">
 					<ion-row>
-						<ion-col text-left class="small">
+						<ion-col  class="small ion-text-left">
 							Total Registered Voters = {{ result.TotalVotes | number }}<br>
 							Percentage of votes counted: {{ result.VotesPecentage }}<br>
 							Result Status: {{ result.ResultStatus }}
 						</ion-col>
-						<ion-col text-right class="small">
+						<ion-col class="small ion-text-right">
 							Total Valid Votes: {{ result.ValidVotes | number }}<br>
 							Total Invalid Votes: {{ result.InvalidVotes | number }}
 						</ion-col>
@@ -32,7 +32,7 @@
 				</ion-grid>
 			</div>
 			<div class="election-parties">
-				<ion-grid no-padding>
+				<ion-grid class="ion-no-padding" no-padding>
 					<ion-row>
 						<ion-col *ngFor="let acronym of result.Parties | party" (click)="gotoPage('party',acronym.value)">
 							<div class="small">{{ acronym.key }}</div>
@@ -42,7 +42,7 @@
 				</ion-grid>
 			</div>
 			<div class="election-competitors">
-				<ion-grid class="show-mobile" no-padding>
+				<ion-grid class="show-mobile ion-no-padding">
 					<ion-row *ngFor="let row of transform2d(result.ElectionResults, 2, result.ElectionResults.length); let i = index">
 						<ion-col *ngFor="let candidate of row; let j = index">
 							<div class="img-wrapper" (tap)="gotoPage('candidate',candidate.Candidate_SLEOP_ID)">

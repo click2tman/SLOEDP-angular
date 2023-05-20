@@ -93,7 +93,7 @@ export class CommonService {
         this.http
           .get("http://localhost:5000/election_results")
           .subscribe((response: any) => {
-            this.whole_results = JSON.parse(response["_body"]);
+            this.whole_results = response;
             this.polling_centres_json = this.toPollingCentresJson(
               this.whole_results["polling_centre"]
             );
@@ -573,6 +573,11 @@ export class CommonService {
     this.getJsonHTTP('../../../assets/maps/region-2018.json').pipe(take(1),tap((response) => this.region2018GeoJSON = response)).subscribe();
     this.getJsonHTTP('../../../assets/maps/district.json').pipe(take(1),tap((response) => this.districtGeoJSON = response)).subscribe()
     this.getJsonHTTP('../../../assets/maps/district-2018.json').pipe(take(1),tap((response) => this.district2018GeoJSON = response)).subscribe();
+    this.getJsonHTTP('../../assets/resources/all-political-parties.json').pipe(take(1),tap((parties) => {
+      this.parties_json = this.toPartiesJson(parties);
+      // console.log(this.parties_json);
+    })).subscribe();
+    this.getJsonHTTP('../../assets/resources/all-candidates.json').pipe(take(1),tap((candidates) => this.candidates_json = this.toCandidatesJson(candidates))).subscribe();
   }
 }
 interface EventCustom {

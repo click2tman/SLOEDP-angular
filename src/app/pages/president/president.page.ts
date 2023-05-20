@@ -71,8 +71,8 @@ export class PresidentPage implements OnInit {
     let index: any = this.slides.getActiveIndex();
   	this.slides.slideTo(index + 1, 500);
   }
-  slideChanged() {
-  	let currentIndex: any = this.slides.getActiveIndex();
+  async slideChanged() {
+  	let currentIndex = await this.slides.getActiveIndex();
   	if (!this.totalPages || currentIndex == this.totalPages || this.totalPages == 0) return;
 
   	this.prevEnabled = !this.slides.isBeginning();
@@ -87,8 +87,8 @@ export class PresidentPage implements OnInit {
   ionViewDidLeave() {
     this.subscription.unsubscribe();
   }
-  setSlideChanges() {
-    let currentIndex: any = this.slides.getActiveIndex();
+  async setSlideChanges() {
+    let currentIndex = await this.slides.getActiveIndex();
     if (!this.totalPages || currentIndex == this.totalPages || this.totalPages == 0) return;
 
     this.subPageViews._results[currentIndex].setContentView();

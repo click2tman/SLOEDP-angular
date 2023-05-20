@@ -61,7 +61,6 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
   }
   fetchData(){
     nationGeoJSON = this.commonService.nationGeoJSON;
-    console.log(nationGeoJSON);
     regionGeoJSON = this.commonService.regionGeoJSON;
     region2018GeoJSON = this.commonService.region2018GeoJSON;
     districtGeoJSON = this.commonService.districtGeoJSON;
@@ -148,6 +147,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     this.drawMap();
   }
   drawMap() {
+    console.log('drawMap()');
     var fields: any = {
       year: this.year,
       type: this.type,
@@ -278,6 +278,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
         }
         vm.applyMap(layers);
       }
+      console.log(this.result.Parties);
       vm.commonService.hideLoading();
     });
   }
