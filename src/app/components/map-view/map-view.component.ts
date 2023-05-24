@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 
 import { icon, latLng, Layer, marker, geoJSON, tileLayer } from "leaflet";
+import * as L from 'leaflet';
 
 let nationGeoJSON: any;
 let regionGeoJSON: any;
@@ -161,126 +162,130 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     this.commonService.showLoading('Loading data...');
     // Create the popup
 
-    this.commonService.loadResultsByFields(fields).then((data: any) => {
-      var Parties = data["Parties"];
-      vm.result.Candidates = data["Candidates"];
-      vm.result.Boundaries = data["Boundaries"];
-      vm.result.TotalVotes = this.year == "2018" ? 3178664 : data["ValidVotes"];
-
-      vm.result.InvalidVotes = this.year == "2018" ? 139427 : 0;
-      vm.result.ResultStatus = "Final & Certified";
-
-      vm.result.ElectionResults = [];
-      vm.boundary_json = {};
-      if (vm.result.Boundaries.length > 0) {
-        vm.boundary_json = vm.makeBoundaryJson(vm.result.Boundaries);
-        if (vm.result.Boundaries[0].candidates[0]["ValidVotes"] > 0) {
-          vm.noWinner = false;
-          vm.result.ValidVotes = vm.result.Boundaries[0].votes;
-          if (vm.year == "2018")
-            if (vm.result.TotalVotes == 0) vm.result.VotesPecentage = "0%";
-            else
-              vm.result.VotesPecentage =
-                ((vm.result.ValidVotes / vm.result.TotalVotes) * 100).toFixed(
-                  2
-                ) + "%";
-          else vm.result.VotesPecentage = "100%";
-        } else {
-          vm.noWinner = true;
+    try {
+      this.commonService.loadResultsByFields(fields).then((data: any) => {
+        var Parties = data["Parties"];
+        vm.result.Candidates = data["Candidates"];
+        vm.result.Boundaries = data["Boundaries"];
+        vm.result.TotalVotes = this.year == "2018" ? 3178664 : data["ValidVotes"];
+  
+        vm.result.InvalidVotes = this.year == "2018" ? 139427 : 0;
+        vm.result.ResultStatus = "Final & Certified";
+  
+        vm.result.ElectionResults = [];
+        vm.boundary_json = {};
+        if (vm.result.Boundaries.length > 0) {
+          vm.boundary_json = vm.makeBoundaryJson(vm.result.Boundaries);
+          if (vm.result.Boundaries[0].candidates[0]["ValidVotes"] > 0) {
+            vm.noWinner = false;
+            vm.result.ValidVotes = vm.result.Boundaries[0].votes;
+            if (vm.year == "2018")
+              if (vm.result.TotalVotes == 0) vm.result.VotesPecentage = "0%";
+              else
+                vm.result.VotesPecentage =
+                  ((vm.result.ValidVotes / vm.result.TotalVotes) * 100).toFixed(
+                    2
+                  ) + "%";
+            else vm.result.VotesPecentage = "100%";
+          } else {
+            vm.noWinner = true;
+          }
+  
+          vm.result.ElectionResults = vm.result.Boundaries[0].candidates;
+          vm.commonService.eventSet({mode:"boundary:select", value: vm.result.Boundaries[0].name})
+          // vm.events.publish("boundary:select", vm.result.Boundaries[0].name);
+          vm.result.Parties = {};
+  
+          for (let candidate of vm.result.Boundaries[0].candidates) {
+            vm.result.Parties[candidate["CandidatePoliticalParty"]] =
+              Parties[candidate["CandidatePoliticalParty"]];
+          }
         }
-
-        vm.result.ElectionResults = vm.result.Boundaries[0].candidates;
-        vm.commonService.eventSet({mode:"boundary:select", value: vm.result.Boundaries[0].name})
-        // vm.events.publish("boundary:select", vm.result.Boundaries[0].name);
-        vm.result.Parties = {};
-
-        for (let candidate of vm.result.Boundaries[0].candidates) {
-          vm.result.Parties[candidate["CandidatePoliticalParty"]] =
-            Parties[candidate["CandidatePoliticalParty"]];
-        }
-      }
-
-      if (
-        vm.region == "nation" ||
-        vm.region == "region" ||
-        vm.region == "district"
-      ) {
-        var geoData: any;
-        if (vm.region == "nation") geoData = nationGeoJSON["features"];
-        if (vm.region == "region" && vm.year != "2018")
-          geoData = regionGeoJSON["features"];
-        if (vm.region == "region" && vm.year == "2018")
-          geoData = region2018GeoJSON["features"];
-        if (vm.region == "district" && vm.year != "2018")
-          geoData = districtGeoJSON["features"];
-        if (vm.region == "district" && vm.year == "2018")
-          geoData = district2018GeoJSON["features"];
-
-        var geoJSONLayer = geoJSON(geoData, {
-          onEachFeature: (feature: any, layer) => {
-            var boundary_key = vm.makeKey(feature.properties.Name);
-            var boundaryName = feature.properties.Name;
-            if (vm.type == "mayor" && vm.boundary_json[boundary_key])
-              boundaryName = vm.boundary_json[boundary_key]["name_council"];
-            layer.bindPopup(boundaryName);
-
-            layer.on("click", function () {
+  
+        if (
+          vm.region == "nation" ||
+          vm.region == "region" ||
+          vm.region == "district"
+        ) {
+          var geoData: any;
+          if (vm.region == "nation") geoData = nationGeoJSON["features"];
+          if (vm.region == "region" && vm.year != "2018")
+            geoData = regionGeoJSON["features"];
+          if (vm.region == "region" && vm.year == "2018")
+            geoData = region2018GeoJSON["features"];
+          if (vm.region == "district" && vm.year != "2018")
+            geoData = districtGeoJSON["features"];
+          if (vm.region == "district" && vm.year == "2018")
+            geoData = district2018GeoJSON["features"];
+  
+          var geoJSONLayer = geoJSON(geoData, {
+            onEachFeature: (feature: any, layer) => {
               var boundary_key = vm.makeKey(feature.properties.Name);
-              var boundary = vm.boundary_json[boundary_key];
-              vm.applyResult(boundary);
-            });
-            if (vm.region == "region" && feature.properties.Name == "West") {
-              layer.fireEvent("click");
-              setTimeout(function () {
-                layer.openPopup();
-              }, 10);
-            }
-            if (
-              vm.region == "district" &&
-              feature.properties.Name == "Western Area Urban"
-            ) {
-              layer.fireEvent("click");
-              setTimeout(function () {
-                layer.openPopup();
-              }, 10);
-            }
-          },
-          style: (feature: any) => {
-            var boundary_key = vm.makeKey(feature.properties.Name);
-            if (vm.boundary_json[boundary_key])
-              return {
-                color: vm.colorFilter(
-                  vm.boundary_json[boundary_key].candidates[0]
-                    .CandidatePoliticalPartyColor
-                ),
-              };
-            else return { color: "#999" };
-          },
-        });
-        vm.applyMap([geoJSONLayer]);
-      } else {
-        var markerBoundary;
-        var layers = [];
-        for (let boundary of vm.result.Boundaries) {
-          markerBoundary = marker([boundary.latitude, boundary.longitude], {
-            icon: icon({
-              iconSize: [25, 41],
-              iconAnchor: [13, 41],
-              iconUrl: "../../assets/imgs/marker.png",
-              shadowUrl: "../../assets/imgs/marker-shadow.png",
-            }),
-          })
-            .bindPopup(boundary.name)
-            .on("click", () => {
-              vm.applyResult(boundary);
-            });
-          layers.push(markerBoundary);
+              var boundaryName = feature.properties.Name;
+              if (vm.type == "mayor" && vm.boundary_json[boundary_key])
+                boundaryName = vm.boundary_json[boundary_key]["name_council"];
+              layer.bindPopup(boundaryName);
+  
+              layer.on("click", function () {
+                var boundary_key = vm.makeKey(feature.properties.Name);
+                var boundary = vm.boundary_json[boundary_key];
+                vm.applyResult(boundary);
+              });
+              if (vm.region == "region" && feature.properties.Name == "West") {
+                layer.fireEvent("click");
+                setTimeout(function () {
+                  layer.openPopup();
+                }, 10);
+              }
+              if (
+                vm.region == "district" &&
+                feature.properties.Name == "Western Area Urban"
+              ) {
+                layer.fireEvent("click");
+                setTimeout(function () {
+                  layer.openPopup();
+                }, 10);
+              }
+            },
+            style: (feature: any) => {
+              var boundary_key = vm.makeKey(feature.properties.Name);
+              if (vm.boundary_json[boundary_key])
+                return {
+                  color: vm.colorFilter(
+                    vm.boundary_json[boundary_key].candidates[0]
+                      .CandidatePoliticalPartyColor
+                  ),
+                };
+              else return { color: "#999" };
+            },
+          });
+          vm.applyMap([geoJSONLayer]);
+        } else {
+          var markerBoundary;
+          var layers = [];
+          for (let boundary of vm.result.Boundaries) {
+            markerBoundary = marker([boundary.latitude, boundary.longitude], {
+              icon: icon({
+                iconSize: [25, 41],
+                iconAnchor: [13, 41],
+                iconUrl: "../../assets/imgs/marker.png",
+                shadowUrl: "../../assets/imgs/marker-shadow.png",
+              }),
+            })
+              .bindPopup(boundary.name)
+              .on("click", () => {
+                vm.applyResult(boundary);
+              });
+            layers.push(markerBoundary);
+          }
+          vm.applyMap(layers);
         }
-        vm.applyMap(layers);
-      }
-      console.log(this.result.Parties);
-      vm.commonService.hideLoading();
-    });
+        console.log(this.result.Parties);
+        vm.commonService.hideLoading();
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
   applyResult(boundary: any) {
     if (boundary) {
@@ -316,7 +321,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
       tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
         attribution: "Open Street Map",
-      })
+      }),
     );
     this.layers = layers;
     return false;
