@@ -1,20 +1,23 @@
 <app-header-view type="president">
-  <ion-nav color="dark" sub-navbar>
-    <a float-left *ngIf="prevEnabled" (click)="setPrevPage()" padding-left>
-      <ion-icon name="arrow-back" item-start></ion-icon> {{prevYear}}
-    </a>
-
+  <ion-toolbar sub-navbar>
+    <ion-buttons slot="start">
+      <ion-button *ngIf="prevEnabled" (click)="setPrevPage()">
+        <ion-icon name="arrow-back" item-start></ion-icon> {{prevYear}}
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       {{year}} Presidential Elections
     </ion-title>
-    <a float-right *ngIf="nextEnabled" (click)="setNextPage()" padding-right>
-      {{nextYear}} <ion-icon name="arrow-forward" item-start></ion-icon>
-    </a>
-  </ion-nav>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="nextEnabled" (click)="setNextPage()">
+        {{nextYear}} <ion-icon name="arrow-forward" item-start></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </app-header-view>
 
 <ion-content [fullscreen]="true">
-  <ion-slides (ionSlideDidChange)="slideChanged()">
+  <ion-slides (ionSlideDidChange)="slideChanged()" [pager]="false" [options]="slideOpts">
 
     <ion-slide *ngFor="let p of subpages; let i = index">
       <div class="ion-text-center">

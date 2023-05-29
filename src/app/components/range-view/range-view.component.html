@@ -1,3 +1,9 @@
-<p>
-  range-view works!
-</p>
+<ion-list lines="none">
+	<ion-list-header>Result Granularity</ion-list-header>
+	<ion-item button (click)="selectGranularity('nation')" *ngIf="nationAvailable">National Results</ion-item>
+	<ion-item button (click)="selectGranularity('region')" *ngIf="regionAvailable">Results By Region</ion-item>
+	<ion-item button (click)="selectGranularity('district')" *ngIf="districtAvailable">Results By District</ion-item>
+	<ion-item button (click)="selectGranularity('constituency')" *ngIf="constituencyAvailable">Results By Constituency</ion-item>
+	<ion-item button (click)="selectGranularity('ward')" *ngIf="wardAvailable">Results By Ward</ion-item>
+	<ion-item button (click)="selectGranularity('polling_centre')" *ngIf="pollingCentreAvailable">Results By Polling Centre</ion-item>
+</ion-list>

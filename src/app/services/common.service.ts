@@ -65,6 +65,15 @@ export class CommonService {
       loader.dismiss();
     }
   }
+  async hideLoadingTime() {
+    let time = setTimeout(async () => {
+      const loader = await this.loadingCtrl.getTop();
+      if (loader) {
+        loader.dismiss();
+      }
+      clearTimeout(time)
+    }, 500);
+  }
   getFileStatus(path: string) {}
 
   setYear(year: any) {

@@ -68,7 +68,9 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     district2018GeoJSON = this.commonService.district2018GeoJSON;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.year,this.type, this.region);
+  }
   ngAfterViewInit() {
     this.isRoundAvailable =
       this.type == "president" && this.two_rounds.indexOf(this.year) != -1;
@@ -282,6 +284,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
         }
         console.log(this.result.Parties);
         vm.commonService.hideLoading();
+        vm.commonService.hideLoadingTime();
       });
     } catch (error) {
       console.log(error);

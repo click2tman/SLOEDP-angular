@@ -79,6 +79,7 @@ export class ContentViewComponent  implements OnInit, AfterViewInit, OnDestroy {
     this.commonService.setGranularity(granularity);
   }
   setContentView() {
+    console.log('setContentView');
     setTimeout((...args: any[]) => {
       this.setGranularityList();
       this.setMapMode(this.mapMode);

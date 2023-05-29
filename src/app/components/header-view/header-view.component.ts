@@ -12,12 +12,14 @@ export class HeaderViewComponent  implements OnInit {
 
   @Input('type') type!: string;
 
-  constructor(public popoverCtrl: PopoverController) { }
+  constructor(public popoverCtrl: PopoverController) {
+    this.isGranularityEnabled = true;
+   }
 
   ngOnInit() {}
 
   async selectRange(event: any) {
-  	let popover = await this.popoverCtrl.create({component: RangeViewComponent, componentProps: {type: this.type}});
+  	let popover = await this.popoverCtrl.create({component: RangeViewComponent, componentProps: {type: this.type},side: 'top'});
     popover.present();
   }
 }

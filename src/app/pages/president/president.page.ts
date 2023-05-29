@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, forwardRef } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ContentViewComponent } from 'src/app/components/content-view/content-view.component';
@@ -11,7 +11,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class PresidentPage implements OnInit {
   @ViewChild(IonSlides) slides!: IonSlides;
-  @ViewChildren(ContentViewComponent) subPageViews: any;
+  @ViewChildren(forwardRef(() => ContentViewComponent)) subPageViews: any;
   subpages!: Array<{year: Number}>;
   totalPages!: any;
   year!: Number;
@@ -20,6 +20,7 @@ export class PresidentPage implements OnInit {
   prevEnabled!:	Boolean;
   nextEnabled!:	Boolean;
   region = "nation";
+  slideOpts!:any;
   initialSlide: any;
   
   subscription!: Subscription;
@@ -39,6 +40,10 @@ export class PresidentPage implements OnInit {
       { year: 2012},
       { year: 2018},
     ];
+    this.slideOpts = {
+      initialSlide : this.subpages.length > 1 ? this.subpages.length - 1 : 0,
+      speed: 400
+    }
     this.initialSlide = this.subpages.length > 1 ? this.subpages.length - 1 : 0;
     this.setPageInfo();
    }
@@ -47,6 +52,7 @@ export class PresidentPage implements OnInit {
   }
   ionViewDidEnter() {
     this.subscription = this.commonService.getGranularity().subscribe(granularity => { 
+      console.log(granularity);
       this.region = granularity;
       this.setSlideChanges();
     });
@@ -62,22 +68,21 @@ export class PresidentPage implements OnInit {
       this.nextYear = this.subpages[1].year;
     }
   }
-  setPrevPage() {
-    let index: any = this.slides.getActiveIndex();
+  async setPrevPage() {
+    let index = await this.slides.getActiveIndex();
   	this.slides.slideTo(index - 1, 500);
   }
 
-  setNextPage() {
-    let index: any = this.slides.getActiveIndex();
+  async setNextPage() {
+    let index = await this.slides.getActiveIndex();
   	this.slides.slideTo(index + 1, 500);
   }
   async slideChanged() {
   	let currentIndex = await this.slides.getActiveIndex();
   	if (!this.totalPages || currentIndex == this.totalPages || this.totalPages == 0) return;
 
-  	this.prevEnabled = !this.slides.isBeginning();
-  	this.nextEnabled = !this.slides.isEnd();
-
+  	this.prevEnabled = !(await this.slides.isBeginning());
+  	this.nextEnabled = !(await this.slides.isEnd());
   	this.year = this.subpages[currentIndex].year;
   	this.prevYear = this.prevEnabled ? this.subpages[currentIndex - 1].year : 0;
   	this.nextYear = this.nextEnabled ? this.subpages[currentIndex + 1].year : 0;
@@ -89,8 +94,9 @@ export class PresidentPage implements OnInit {
   }
   async setSlideChanges() {
     let currentIndex = await this.slides.getActiveIndex();
+    this.prevEnabled = !(await this.slides.isBeginning());
+  	this.nextEnabled = !(await this.slides.isEnd());
     if (!this.totalPages || currentIndex == this.totalPages || this.totalPages == 0) return;
-
     this.subPageViews._results[currentIndex].setContentView();
     this.commonService.setYear(this.year);
   }
