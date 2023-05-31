@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 
 import { icon, latLng, Layer, marker, geoJSON, tileLayer } from "leaflet";
-import * as L from 'leaflet';
+import * as Leaflet from 'leaflet';
 
 let nationGeoJSON: any;
 let regionGeoJSON: any;
@@ -25,7 +25,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
   @Input("region") region!: any;
   @Input("type") type!: any;
   round!: boolean;
-
+  map!: Leaflet.Map;
   result: any;
   boundary_json: any;
 
@@ -58,7 +58,6 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
       ElectionResults: [],
     };
     this.noWinner = true;
-    this.applyMap([]);
   }
   fetchData(){
     nationGeoJSON = this.commonService.nationGeoJSON;
@@ -72,6 +71,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     console.log(this.year,this.type, this.region);
   }
   ngAfterViewInit() {
+    // this.applyMap([]);
     this.isRoundAvailable =
       this.type == "president" && this.two_rounds.indexOf(this.year) != -1;
     this.round = this.year == 2018;
@@ -151,6 +151,16 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
   }
   drawMap() {
     console.log('drawMap()');
+    if(this.map){
+      // this.map.off();
+      this.map.remove();
+      // this.map.invalidateSize();
+    }
+    this.map = Leaflet.map('mapId'+this.year).setView([8.460555, -11.779889], 7);
+    Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'edupala.com © Angular LeafLet',
+    }).addTo(this.map);
+    this.map.off();
     var fields: any = {
       year: this.year,
       type: this.type,
@@ -220,7 +230,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
           if (vm.region == "district" && vm.year == "2018")
             geoData = district2018GeoJSON["features"];
   
-          var geoJSONLayer = geoJSON(geoData, {
+          Leaflet.geoJSON(geoData, {
             onEachFeature: (feature: any, layer) => {
               var boundary_key = vm.makeKey(feature.properties.Name);
               var boundaryName = feature.properties.Name;
@@ -260,8 +270,8 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
                 };
               else return { color: "#999" };
             },
-          });
-          vm.applyMap([geoJSONLayer]);
+          }).addTo(this.map);
+          // vm.applyMap([geoJSONLayer],this.map);
         } else {
           var markerBoundary;
           var layers = [];
@@ -280,7 +290,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
               });
             layers.push(markerBoundary);
           }
-          vm.applyMap(layers);
+          vm.applyMap(layers, this.map);
         }
         console.log(this.result.Parties);
         vm.commonService.hideLoading();
@@ -319,12 +329,12 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     }
     this.ref.detectChanges();
   }
-  applyMap(layers: any) {
+  applyMap(layers: any, map: Leaflet.Map) {
     layers.push(
       tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
         attribution: "Open Street Map",
-      }),
+      }).addTo(map),
     );
     this.layers = layers;
     return false;

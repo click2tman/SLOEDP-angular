@@ -2,10 +2,7 @@
 <!-- Generated template for the MapViewComponent component -->
 <div class="view-container">
 	<div class="map"
-		id="map"
-		leaflet
-		[leafletLayers]="layers"
-		[leafletOptions]="mapOptions"
+		[id]="'mapId'+year"
 		>
 		<div class="round-box" *ngIf="isRoundAvailable">
 			<label>Round: First&nbsp;</label>

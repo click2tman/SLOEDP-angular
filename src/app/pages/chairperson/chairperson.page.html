@@ -1,0 +1,29 @@
+<app-header-view type="president">
+  <ion-toolbar sub-navbar>
+    <ion-buttons slot="start">
+      <ion-button *ngIf="prevEnabled" (click)="setPrevPage()">
+        <ion-icon name="arrow-back" item-start></ion-icon> {{prevYear}}
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{year}} Chairperson Elections
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="nextEnabled" (click)="setNextPage()">
+        {{nextYear}} <ion-icon name="arrow-forward" item-start></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</app-header-view>
+
+<ion-content [fullscreen]="true">
+  <ion-slides (ionSlideDidChange)="slideChanged()" [pager]="false" [options]="slideOpts">
+
+    <ion-slide *ngFor="let p of subpages; let i = index">
+      <div class="ion-text-center">
+        <app-content-view type="president" [year]="p.year" [region]="region" #president_{{i}}></app-content-view>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

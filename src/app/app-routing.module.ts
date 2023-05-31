@@ -24,6 +24,18 @@ const routes: Routes = [
     path: 'party/:id',
     loadChildren: () => import('./pages/party-profile/party-profile.module').then( m => m.PartyProfilePageModule)
   },
+  {
+    path: 'parliamentary',
+    loadChildren: () => import('./pages/parliamentary/parliamentary.module').then( m => m.ParliamentaryPageModule)
+  },
+  {
+    path: 'mayor',
+    loadChildren: () => import('./pages/mayor/mayor.module').then( m => m.MayorPageModule)
+  },
+  {
+    path: 'chairperson',
+    loadChildren: () => import('./pages/chairperson/chairperson.module').then( m => m.ChairpersonPageModule)
+  },
 ];
 
 @NgModule({

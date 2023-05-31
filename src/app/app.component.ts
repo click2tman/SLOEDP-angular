@@ -9,9 +9,9 @@ export class AppComponent {
   pages = [
     { title: 'SLOEDP Platform',name: "", url: '' },
     { title: 'Presidential',name: "presidential", url: '/president' },
-    { title: 'Parliamentary',name: "parliamentary", url: '' },
-    { title: 'Mayor',name: "mayor", url: '' },
-    { title: 'Chairperson',name: "chairperson", url: '' },
+    { title: 'Parliamentary',name: "parliamentary", url: '/parliamentary' },
+    { title: 'Mayor',name: "mayor", url: 'mayor' },
+    { title: 'Chairperson',name: "chairperson", url: 'chairperson' },
     { title: 'Councilor',name: "councilor", url: '' },
     { title: 'About this app',name: "about", url: '' },
   ];

@@ -5,34 +5,33 @@ import { ContentViewComponent } from 'src/app/components/content-view/content-vi
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
-  selector: 'app-president',
-  templateUrl: './president.page.html',
-  styleUrls: ['./president.page.scss'],
+  selector: 'app-mayor',
+  templateUrl: './mayor.page.html',
+  styleUrls: ['./mayor.page.scss'],
 })
-export class PresidentPage implements OnInit {
+export class MayorPage implements OnInit {
   @ViewChild(IonSlides) slides!: IonSlides;
   @ViewChildren(forwardRef(() => ContentViewComponent)) subPageViews: any;
   subpages!: Array<{year: number}>;
-  totalPages!: any;
+  totalPages!: number;
   year!: number;
   prevYear!: number;
   nextYear!: number;
-  prevEnabled!:	Boolean;
-  nextEnabled!:	Boolean;
-  region = "nation";
-  slideOpts!:any;
+  prevEnabled!: Boolean;
+  nextEnabled!: Boolean;
+  region = "district";
   initialSlide: any;
+  slideOpts!:any;
   
   subscription!: Subscription;
   constructor(
     private commonService: CommonService
-  ) {
+  ) { 
     this.prevEnabled = false;
     this.nextEnabled = false;
     this.year = 0;
     this.prevYear = 0;
     this.nextYear = 0;
-
     this.subpages = [
       { year: 1996},
       { year: 2002},
@@ -46,7 +45,7 @@ export class PresidentPage implements OnInit {
     }
     this.initialSlide = this.subpages.length > 1 ? this.subpages.length - 1 : 0;
     this.setPageInfo();
-   }
+  }
 
   ngOnInit() {
   }

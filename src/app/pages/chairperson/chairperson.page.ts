@@ -3,13 +3,13 @@ import { IonSlides } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ContentViewComponent } from 'src/app/components/content-view/content-view.component';
 import { CommonService } from 'src/app/services/common.service';
-
 @Component({
-  selector: 'app-president',
-  templateUrl: './president.page.html',
-  styleUrls: ['./president.page.scss'],
+  selector: 'app-chairperson',
+  templateUrl: './chairperson.page.html',
+  styleUrls: ['./chairperson.page.scss'],
 })
-export class PresidentPage implements OnInit {
+export class ChairpersonPage implements OnInit {
+
   @ViewChild(IonSlides) slides!: IonSlides;
   @ViewChildren(forwardRef(() => ContentViewComponent)) subPageViews: any;
   subpages!: Array<{year: number}>;
@@ -19,7 +19,7 @@ export class PresidentPage implements OnInit {
   nextYear!: number;
   prevEnabled!:	Boolean;
   nextEnabled!:	Boolean;
-  region = "nation";
+  region = "district";
   slideOpts!:any;
   initialSlide: any;
   
@@ -100,4 +100,5 @@ export class PresidentPage implements OnInit {
     this.subPageViews._results[currentIndex].setContentView();
     this.commonService.setYear(this.year);
   }
+
 }

@@ -39,6 +39,7 @@ i {
 .view-container {
 	.map {
 		height: 50vh;
+		z-index:99999;
 	}
 	.election-details {
 		bottom: 0;
