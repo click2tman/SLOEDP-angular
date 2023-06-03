@@ -23,8 +23,16 @@
 		font-size: 14px !important;
 		&.active {
 			background-color: #666 !important;
+			--background: #666 !important;
 			color: #fff !important;
 		}
+	}
+	ion-button{
+	    padding: 0;
+		--padding-start: 0;
+		--padding-end: 0;
+		--border-radius: 6px;
+		border-radius: 6px;	
 	}
 }
 .granularity-list {

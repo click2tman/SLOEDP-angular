@@ -19,10 +19,13 @@
 <ion-content [fullscreen]="true">
   <ion-slides (ionSlideDidChange)="slideChanged()" [pager]="false" [options]="slideOpts">
 
-    <ion-slide *ngFor="let p of subpages; let i = index">
-      <div class="ion-text-center">
+    <ion-slide class="scroll-content" *ngFor="let p of subpages; let i = index">
+      <ion-content style="position:absolute; top: 0; bottom: 0; width:100%;" scrollY="true">
+        <!-- Your scrollable content here -->
         <app-content-view type="president" [year]="p.year" [region]="region" #president_{{i}}></app-content-view>
-      </div>
+      </ion-content>
+      <!-- <div class="ion-text-center">
+      </div> -->
     </ion-slide>
 
   </ion-slides>

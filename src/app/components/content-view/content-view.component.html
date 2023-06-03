@@ -66,13 +66,19 @@
 		</ion-col>
 		<ion-col size="12" class="content" [ngClass]="{'fullWidth': sidebarDisabled}">
 			<ion-toolbar class="viewModeToolbar">
-				<ion-button (click)="setMapMode(true)" [ngClass]="{'active': mapMode}" class="modeButton" float-left>
-					Map&nbsp;<i class="fa fa-globe"></i>
-				</ion-button>
-				<ion-title text-center>{{ resultRegion }}</ion-title>
-				<ion-buttons end>
+				<ion-buttons slot="start">
+					<ion-button (click)="setMapMode(true)" [ngClass]="{'active': mapMode}" class="modeButton">
+						Map&nbsp;<ion-icon name="earth-outline"></ion-icon>
+					</ion-button>
+				</ion-buttons>
+				<ion-title class="ion-text-center">
+					<div class="ion-text-center">
+						{{ resultRegion }}
+					</div>
+				</ion-title>
+				<ion-buttons slot="end">
 					<ion-button (click)="setMapMode(false)" [ngClass]="{'active': !mapMode}" class="modeButton">
-						<i class="fa fa-table"></i>&nbsp;Table
+						<ion-icon name="grid-outline"></ion-icon>&nbsp;Table
 					</ion-button>
 				</ion-buttons>
 			</ion-toolbar>
