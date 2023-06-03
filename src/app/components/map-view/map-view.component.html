@@ -1,4 +1,3 @@
-
 <!-- Generated template for the MapViewComponent component -->
 <div class="view-container">
 	<div class="map"
@@ -31,7 +30,7 @@
 				</ion-grid>
 			</div>
 			<div class="election-parties">
-				<ion-grid class="ion-no-padding" no-padding>
+				<ion-grid class="ion-no-padding">
 					<ion-row>
 						<ion-col *ngFor="let acronym of result.Parties | party" (click)="gotoPage('party',acronym.value)">
 							<div class="small">{{ acronym.key }}</div>
@@ -46,7 +45,7 @@
 						<ion-col *ngFor="let candidate of row; let j = index">
 							<div class="img-wrapper" (tap)="gotoPage('candidate',candidate.Candidate_SLEOP_ID)">
 								<a>
-									<img src="/assets/imgs/avatar.png" padding-left *ngIf="!candidate.CandidatePhoto">
+									<img src="/assets/imgs/avatar.png" *ngIf="!candidate.CandidatePhoto">
 									<img src="{{ setPhotoUrl(candidate.CandidatePhoto) }}" *ngIf="candidate.CandidatePhoto">
 									<span [innerHtml]="candidate.CandidateFullName"></span>
 								</a>
@@ -57,7 +56,7 @@
 						</ion-col>
 					</ion-row>
 				</ion-grid>
-				<ion-grid class="show-tablet">
+				<!-- <ion-grid class="show-tablet">
 					<ion-row *ngFor="let row of transform2d(result.ElectionResults, 3, 6); let i = index">
 						<ion-col *ngFor="let candidate of row; let j = index">
 							<div class="img-wrapper" (tap)="gotoPage('candidate',candidate.Candidate_SLEOP_ID)">
@@ -72,8 +71,8 @@
 							</div>
 						</ion-col>
 					</ion-row>
-				</ion-grid>
-				<ion-grid class="show-core">
+				</ion-grid> -->
+				<!-- <ion-grid class="show-core">
 					<ion-row *ngFor="let row of transform2d(result.ElectionResults, 4, 12); let i = index">
 						<ion-col *ngFor="let candidate of row; let j = index">
 							<div class="img-wrapper" (tap)="gotoPage('candidate',candidate.Candidate_SLEOP_ID)">
@@ -88,7 +87,7 @@
 							</div>
 						</ion-col>
 					</ion-row>
-				</ion-grid>
+				</ion-grid> -->
 			</div>
 		</div>
 	</div>

@@ -154,12 +154,9 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     if(this.map){
       // this.map.off();
       this.map.remove();
-      // this.map.invalidateSize();
+      this.map.invalidateSize();
     }
     this.map = Leaflet.map('mapId'+this.year).setView([8.460555, -11.779889], 7);
-    Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'edupala.com © Angular LeafLet',
-    }).addTo(this.map);
     this.map.off();
     var fields: any = {
       year: this.year,
@@ -270,6 +267,9 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
                 };
               else return { color: "#999" };
             },
+          }).addTo(this.map);
+          Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'edupala.com © Angular LeafLet',
           }).addTo(this.map);
           // vm.applyMap([geoJSONLayer],this.map);
         } else {

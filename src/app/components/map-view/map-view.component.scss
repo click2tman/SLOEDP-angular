@@ -1,17 +1,21 @@
 // app-map-view {
 // }
 .round-box {
-	display: -webkit-box;
 	margin-top: 10px;
-	position: absolute;
-	z-index: 500;
-	bottom: 0;
-	left: 10px;
-	color: #fff;
-	text-shadow: 0px 0px 3px rgb(0,0,0);
+    position: absolute;
+    z-index: 500;
+    bottom: 1rem;
+    left: 10px;
+    color: #fff;
+    text-shadow: 0px 0px 3px rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+	background: #00000047;
+    padding: 0 0.5rem;
+    border-radius: 0.5rem;
 	label {
 		line-height: 35px;
-		font-size: 1.5rem;
+		font-size: 1rem;
 	}
 	.toggle-ios {
 		.toggle-icon {
@@ -28,7 +32,7 @@
 	}
 }
 .small {
-	font-size: 1rem;
+	font-size: 0.7rem;
 }
 .no-data {
 	padding-top: 150px;
@@ -42,7 +46,7 @@ i {
 		z-index:99999;
 	}
 	.election-details {
-		bottom: 0;
+		padding: 0 1rem  1rem 1rem;
 		& > div {
 			padding-top: 10px;
 		}
