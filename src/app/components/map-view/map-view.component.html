@@ -32,7 +32,7 @@
 			<div class="election-parties">
 				<ion-grid class="ion-no-padding">
 					<ion-row>
-						<ion-col *ngFor="let acronym of result.Parties | party" (click)="gotoPage('party',acronym.value)">
+						<ion-col *ngFor="let acronym of result.Parties | party" (click)="gotoPage('party',acronym.value.Acronym)">
 							<div class="small">{{ acronym.key }}</div>
 							<div class="party-card" [style.background-color]="colorFilter(acronym.value.Color)"></div>
 						</ion-col>

@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
-
-import * as parties from "../../assets/resources/all-political-parties.json";
-import * as candidates from "../../assets/resources/all-candidates.json";
+import { Browser } from '@capacitor/browser';
 import { waterfall } from 'async';
 import { Observable, Subject, take, tap } from 'rxjs';
 
@@ -79,7 +77,9 @@ export class CommonService {
   setYear(year: any) {
     this.year = year;
   }
-
+  async openSite(url: string) {
+    await Browser.open({ url });
+  };
   getYear() {
     return this.year ? this.year : "";
   }

@@ -1,13 +1,65 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>party-profile</ion-title>
+<ion-header>
+  <ion-toolbar class="ion-text-center" color="dark">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" fill="clear">
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Party Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">party-profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid class="show-core">
+		<ion-row>
+			<ion-col size="12" class="ion-padding">
+        <div class="profile">
+          <img class="candidate-logo" [src]="'assets/imgs/party/'+party.Logo">
+        </div>
+        <div>
+          <h4 class="ion-text-center">
+            <ion-label (click)="openSite(party.Website)">
+              {{ party.Name }}
+            </ion-label>
+          </h4>
+          <p><strong>Founders:</strong> {{ party.Founders }}</p>
+          <p><strong>Date Founded:</strong> {{ party.DateFounded }}</p>
+        </div>
+			</ion-col>
+			<ion-col size="12" class="ion-padding-horizontal">
+				<p><strong>Description:</strong></p> <div [innerHTML]="party.Description"></div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- <ion-grid class="show-tablet">
+		<ion-row>
+			<ion-col col-4 text-center>
+				<img class="party-logo" [src]="sourceUrl(party.Logo)">
+			</ion-col>
+			<ion-col col-8>
+				<h4><a [href]="party.Website" target="_blank">{{ party.Name }}</a></h4>
+				<p><strong>Founders:</strong> {{ party.Founders }}</p>
+				<p><strong>Date Founded:</strong> {{ party.DateFounded }}</p>
+				<p><strong>Description:</strong></p> <div [innerHTML]="party.Description"></div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<ion-grid class="show-mobile">
+		<ion-row>
+			<ion-col text-center>
+				<img class="party-logo" [src]="sourceUrl(party.Logo)">
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<h4><a [href]="party.Website" target="_blank">{{ party.Name }}</a></h4>
+				<p><strong>Founders:</strong> {{ party.Founders }}</p>
+				<p><strong>Date Founded:</strong> {{ party.DateFounded }}</p>
+				<p><strong>Description:</strong></p> <div [innerHTML]="party.Description"></div>
+			</ion-col>
+		</ion-row>
+	</ion-grid> -->
 </ion-content>

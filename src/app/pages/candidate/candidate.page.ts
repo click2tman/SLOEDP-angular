@@ -14,7 +14,6 @@ export class CandidatePage implements OnInit {
     private route: ActivatedRoute
   ) { 
     const id = this.route.snapshot.params['id'];
-    console.log(id);
     this.candidate = commonService.getCandidate(id)
   }
 
