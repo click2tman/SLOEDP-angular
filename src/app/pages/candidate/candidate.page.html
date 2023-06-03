@@ -1,13 +1,71 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>candidate</ion-title>
+<ion-header>
+  <ion-toolbar class="ion-text-center" color="dark">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" fill="clear">
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Candidate Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">candidate</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="" *ngIf="candidate">
+		<ion-grid class="show-core">
+			<ion-row>
+				<ion-col size="12" class="ion-padding">
+          <div class="profile">
+            <img class="candidate-logo" [src]="sourceUrl(candidate.CandidatePhoto)">
+          </div>
+          <div>
+            <h4 class="ion-text-center">{{ getCandidateName() }}</h4>
+            <p><strong>Political Party:</strong> {{ candidate.PoliticalParty }}</p>
+            <p><strong>Election Year:</strong> {{ candidate.ElectionYear }}</p>
+          </div>
+				</ion-col>
+				<ion-col size="12" class="ion-padding-horizontal">
+          <div>
+            <strong>Description:</strong>
+            <div [innerHTML]="candidate.Profile"></div>
+          </div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<!-- <ion-grid class="show-tablet">
+			<ion-row>
+				<ion-col text-center>
+					<img class="candidate-logo" [src]="sourceUrl(candidate.CandidatePhoto)">
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<h4>{{ getCandidateName() }}</h4>
+					<p><strong>Political Party:</strong> {{ candidate.PoliticalParty }}</p>
+					<p><strong>Election Year:</strong> {{ candidate.ElectionYear }}</p>
+					<p><strong>Body:</strong></p> <div [innerHTML]="candidate.Profile"></div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<ion-grid class="show-mobile">
+			<ion-row>
+				<ion-col text-center>
+					<img class="candidate-logo" [src]="sourceUrl(candidate.CandidatePhoto)">
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<h4>{{ getCandidateName() }}</h4>
+					<p><strong>Political Party:</strong> {{ candidate.PoliticalParty }}</p>
+					<p><strong>Election Year:</strong> {{ candidate.ElectionYear }}</p>
+					<p><strong>Body:</strong></p> <div [innerHTML]="candidate.Profile"></div>
+				</ion-col>
+			</ion-row>
+		</ion-grid> -->
+	</div>
+	<div class="empty-info" padding-top *ngIf="!candidate">
+		There is no information about this candidate.
+	</div>
 </ion-content>
