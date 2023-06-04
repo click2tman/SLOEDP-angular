@@ -2,6 +2,8 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@ang
 
 import { icon, latLng, Layer, marker, geoJSON, tileLayer } from "leaflet";
 import * as Leaflet from 'leaflet';
+import 'leaflet.markercluster';
+import 'leaflet.awesome-markers';
 
 let nationGeoJSON: any;
 let regionGeoJSON: any;
@@ -68,7 +70,6 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log(this.year,this.type, this.region);
   }
   ngAfterViewInit() {
     // this.applyMap([]);
@@ -291,11 +292,36 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
             layers.push(markerBoundary);
           }
           vm.applyMap(layers, this.map);
+
+
+          // const boundaries = vm.result.Boundaries; // Assuming you have the boundaries array available
+
+          // const markerIcon = Leaflet.icon({
+          //   iconUrl: '../../assets/imgs/marker.png',
+          //   iconSize: [25, 41],
+          //   iconAnchor: [13, 41],
+          //   popupAnchor: [0, -28],
+          // });
+
+          // const markerClusterGroup = Leaflet.markerClusterGroup();
+
+          // for (let boundary of boundaries) {
+          //   const marker = Leaflet.marker([boundary.latitude, boundary.longitude], { icon: markerIcon })
+          //     .bindPopup(boundary.name)
+          //     .on('click', () => {
+          //       vm.applyResult(boundary);
+          //     });
+          //   markerClusterGroup.addLayer(marker);
+          // }
+          // markerClusterGroup.addTo(this.map);
+          // Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          //   attribution: 'edupala.com © Angular LeafLet',
+          // }).addTo(this.map);
         }
-        console.log(this.result.Parties);
+        // console.log(this.result.Parties);
         vm.commonService.hideLoading();
         vm.commonService.hideLoadingTime();
-      });
+      }).catch((error) => console.log(error));
     } catch (error) {
       console.log(error);
     }
@@ -330,6 +356,7 @@ export class MapViewComponent  implements OnInit, AfterViewInit {
     this.ref.detectChanges();
   }
   applyMap(layers: any, map: Leaflet.Map) {
+    
     layers.push(
       tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,

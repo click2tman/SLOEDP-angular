@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { MapViewComponent } from '../map-view/map-view.component';
 import { TableViewComponent } from '../table-view/table-view.component';
 import { CommonService } from 'src/app/services/common.service';
@@ -31,7 +31,8 @@ export class ContentViewComponent  implements OnInit, AfterViewInit, OnDestroy {
   mapDisabled!: boolean;
   sidebarDisabled!: boolean;
   constructor(
-    private commonService: CommonService
+    private commonService: CommonService,
+    private cdr: ChangeDetectorRef
   ) { 
     this.mapMode = true;
     this.$Sub = this.commonService.eventPublish().subscribe((response => {
@@ -46,8 +47,9 @@ export class ContentViewComponent  implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {}
   ngAfterViewInit() {
-    if (this.type != 'president')
-      this.sidebarDisabled = true
+    if (this.type != 'president') this.sidebarDisabled = true;
+
+    this.cdr.detectChanges();
   }
   setMapMode(mode: any) {
     this.mapMode = mode;

@@ -84,8 +84,8 @@
 			</ion-toolbar>
 			<app-map-view *ngIf="mapMode" [year]="year" [region]="region" [type]="type" #mapview>
 			</app-map-view>
-			<table-view *ngIf="!mapMode" [year]="year" [region]="region" [type]="type" #tableview>
-			</table-view>
+			<app-table-view *ngIf="!mapMode" [year]="year" [region]="region" [type]="type" #tableview>
+			</app-table-view>
 		</ion-col>
 	</ion-row>
 </ion-grid>

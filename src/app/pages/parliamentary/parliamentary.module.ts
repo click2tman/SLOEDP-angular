@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ParliamentaryPageRoutingModule } from './parliamentary-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 import { ParliamentaryPage } from './parliamentary.page';
 
@@ -13,7 +14,8 @@ import { ParliamentaryPage } from './parliamentary.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ParliamentaryPageRoutingModule
+    ParliamentaryPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ParliamentaryPage]
 })
