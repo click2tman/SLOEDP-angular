@@ -36,6 +36,10 @@ const routes: Routes = [
     path: 'chairperson',
     loadChildren: () => import('./pages/chairperson/chairperson.module').then( m => m.ChairpersonPageModule)
   },
+  {
+    path: 'councilor',
+    loadChildren: () => import('./pages/councilor/councilor.module').then( m => m.CouncilorPageModule)
+  },
 ];
 
 @NgModule({

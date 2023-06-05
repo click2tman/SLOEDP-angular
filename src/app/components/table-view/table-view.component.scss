@@ -3,7 +3,7 @@ $breakpoint-alpha: 320px; // adjust to your needs
 	width: 100% !important;
 }
 .small {
-	font-size: 1rem;
+	font-size: 0.7rem;
 }
 .round-box {
 	display: -webkit-box;
@@ -29,7 +29,7 @@ $breakpoint-alpha: 320px; // adjust to your needs
 }
 table {
 	width: 100%;
-	font-size: 1.8rem;
+	font-size: 0.7rem;;
 	tr {
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
@@ -85,7 +85,7 @@ table {
 		@media only screen
 		and (min-device-width : 320px)
 		and (max-device-width : 480px) {
-			font-size: 1.2rem
+			font-size: 0.7rem
 		}
 	}
 }

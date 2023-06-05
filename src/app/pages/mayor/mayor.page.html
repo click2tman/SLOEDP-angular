@@ -1,4 +1,4 @@
-<app-header-view type="president">
+<app-header-view type="mayor">
   <ion-toolbar sub-navbar>
     <ion-buttons slot="start">
       <ion-button *ngIf="prevEnabled" (click)="setPrevPage()">
@@ -20,9 +20,9 @@
   <ion-slides (ionSlideDidChange)="slideChanged()" [pager]="false" [options]="slideOpts">
 
     <ion-slide *ngFor="let p of subpages; let i = index">
-      <div class="ion-text-center">
-        <app-content-view type="president" [year]="p.year" [region]="region" #president_{{i}}></app-content-view>
-      </div>
+      <ion-content style="position:absolute; top: 0; bottom: 0; width:100%;" scrollY="true">
+        <app-content-view type="mayor" [year]="p.year" [region]="region" #mayor_{{i}}></app-content-view>
+      </ion-content>
     </ion-slide>
 
   </ion-slides>

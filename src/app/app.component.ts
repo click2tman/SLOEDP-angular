@@ -12,7 +12,7 @@ export class AppComponent {
     { title: 'Parliamentary',name: "parliamentary", url: '/parliamentary' },
     { title: 'Mayor',name: "mayor", url: 'mayor' },
     { title: 'Chairperson',name: "chairperson", url: 'chairperson' },
-    { title: 'Councilor',name: "councilor", url: '' },
+    { title: 'Councilor',name: "councilor", url: 'councilor' },
     { title: 'About this app',name: "about", url: '' },
   ];
   constructor(
