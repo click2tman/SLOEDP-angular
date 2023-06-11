@@ -34,6 +34,7 @@
     "@types/leaflet.markercluster": "^1.5.1",
     "@types/select2": "^4.0.57",
     "async": "^3.2.4",
+    "express-https-redirect": "^1.0.0",
     "ionicons": "^6.0.3",
     "leaflet": "^1.9.4",
     "leaflet.awesome-markers": "^2.0.5",

@@ -2,8 +2,8 @@
 <div class="ion-padding">
 	<ion-grid *ngIf="!isNation">
 		<ion-row>
-			<ion-col col-3 text-right>Filter: </ion-col>
-			<ion-col col-9><select2 [value]="Boundary" [data]="Boundaries" (valueChanged)="onSelectChange($event)"></select2></ion-col>
+			<ion-col size="3" class="ion-text-right" >Filter: </ion-col>
+			<ion-col size="col-9" ><select2 [value]="Boundary" [data]="Boundaries" (valueChanged)="onSelectChange($event)"></select2></ion-col>
 		</ion-row>
 	</ion-grid>
 	<div class="round-box" *ngIf="isRoundAvailable">

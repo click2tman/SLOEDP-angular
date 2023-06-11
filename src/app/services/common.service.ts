@@ -4,6 +4,7 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
 import { Browser } from '@capacitor/browser';
 import { waterfall } from 'async';
 import { Observable, Subject, take, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -100,7 +101,7 @@ export class CommonService {
     } else {
       return new Promise((resolve) => {
         this.http
-          .get("http://localhost:5000/election_results")
+          .get(environment.url+"/election_results")
           .subscribe((response: any) => {
             this.whole_results = response;
             this.polling_centres_json = this.toPollingCentresJson(

@@ -2,7 +2,7 @@
 <!-- Generated template for the ContentViewComponent component -->
 <ion-grid>
 	<ion-row>
-		<ion-col size="4" class="granularity-list ion-no-padding show-core" *ngIf="!sidebarDisabled">
+		<!-- <ion-col size="4" class="granularity-list ion-no-padding show-core" *ngIf="!sidebarDisabled">
 			<a *ngIf="region != 'nation' && nationAvailable" (click)="seletGranularity('nation')">
 				<div class="senate">
 					<div class="box">
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 			</a>
-		</ion-col>
+		</ion-col> -->
 		<ion-col size="12" class="content ion-no-padding" [ngClass]="{'fullWidth': sidebarDisabled}">
 			<ion-toolbar class="viewModeToolbar">
 				<ion-buttons slot="start">
@@ -82,9 +82,9 @@
 					</ion-button>
 				</ion-buttons>
 			</ion-toolbar>
-			<app-map-view *ngIf="mapMode" [year]="year" [region]="region" [type]="type" #mapview>
+			<app-map-view [hidden]="!mapMode" [year]="year" [region]="region" [type]="type" #mapview>
 			</app-map-view>
-			<app-table-view *ngIf="!mapMode" [year]="year" [region]="region" [type]="type" #tableview>
+			<app-table-view [hidden]="mapMode" [year]="year" [region]="region" [type]="type" #tableview>
 			</app-table-view>
 		</ion-col>
 	</ion-row>
