@@ -48,3 +48,9 @@ ion-slides{
         // height: auto;
     }
 }
+.select2-container {
+	width: 100% !important;
+    li{
+        color: var(--ion-color-dark);
+    }
+}

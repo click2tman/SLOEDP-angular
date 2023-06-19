@@ -19,7 +19,7 @@ export class TableViewComponent  implements OnInit, AfterViewInit {
   Results: any;
   Boundaries: any;
   isNation!: boolean;
-  Boundary!: string;
+  Boundary!: any;
   noWinner!: boolean;
   isRoundAvailable!: boolean;
 
@@ -65,7 +65,6 @@ export class TableViewComponent  implements OnInit, AfterViewInit {
   drawTable(boundary: any) {
     if (boundary != "")
       this.Boundary = boundary;
-
     var fields: any = {
       year: this.year,
       type: this.type,

@@ -8,7 +8,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableViewComponent } from './table-view/table-view.component';
 import { RangeViewComponent } from './range-view/range-view.component';
-import { Select2Module } from 'ng-select2-component';
+import { NgSelect2Module } from 'ng-select2';
+
 import { HeaderViewComponent } from './header-view/header-view.component';
 @NgModule({
 	declarations: [
@@ -25,7 +26,7 @@ import { HeaderViewComponent } from './header-view/header-view.component';
         PipesModule,
         ReactiveFormsModule,
         FormsModule,
-        Select2Module
+        NgSelect2Module
     ],
 	exports: [
         ContentViewComponent,
