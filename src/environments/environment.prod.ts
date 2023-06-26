@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  url: 'https://app.elections.sl'
+  url: ''
+  // url: 'https://app.elections.sl'
 };
